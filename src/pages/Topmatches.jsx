@@ -22,7 +22,7 @@ const Topmatches = () => {
     if (userId) {
       const fetchProfiles = async () => {
         try {
-          const response = await fetch("http://localhost:4000/api/top-profiles", {
+          const response = await fetch("https://linkup-server-o8ro.onrender.com/api/top-profiles", {
             method: "POST",
             headers: { "Content-Type": "application/json" },
             body: JSON.stringify({ userId }),
@@ -108,7 +108,7 @@ const Topmatches = () => {
                   <img
                     src={
                       profile.profile_pic
-                        ? `http://localhost:4000/${profile.profile_pic}`
+                        ? `https://linkup-server-o8ro.onrender.com/${profile.profile_pic}`
                         : "/default-avatar.jpg"
                     }
                     alt={`${profile.name}'s profile`}

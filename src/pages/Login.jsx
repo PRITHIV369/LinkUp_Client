@@ -15,7 +15,7 @@ const Login = () => {
   const handleLogin = async (e) => {
     e.preventDefault();
     try {
-      const response = await axios.post("http://localhost:4000/login", formData);
+      const response = await axios.post("https://linkup-server-o8ro.onrender.com/login", formData);
       const { userId } = response.data;
       localStorage.setItem("userId", userId);
       navigate("/topmatches");
