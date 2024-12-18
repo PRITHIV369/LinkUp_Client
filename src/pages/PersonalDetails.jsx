@@ -34,7 +34,7 @@ const ProfileDetails = () => {
       <div className="w-full max-w-3xl bg-slate-700 shadow-lg rounded-xl p-6 sm:p-8 lg:p-10 text-slate-200">
         <div className="flex flex-col sm:flex-row items-center sm:items-start gap-6 sm:gap-8 border-b border-slate-600 pb-6">
           <img
-            src={profile.profilePic ? `https://linkup-server-o8ro.onrender.com/${profile.profilePic}` : "/default-avatar.jpg"}
+            src={profile.profilePic ? profile.profilePic: "/default-avatar.jpg"}
             alt={`${profile.name}'s profile`}
             className="w-24 h-24 sm:w-32 sm:h-32 rounded-full object-cover border-4 border-slate-600 shadow-md"
           />

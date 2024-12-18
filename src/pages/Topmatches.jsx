@@ -108,7 +108,7 @@ const Topmatches = () => {
                   <img
                     src={
                       profile.profile_pic
-                        ? `https://linkup-server-o8ro.onrender.com/${profile.profile_pic}`
+                        ? profile.profile_pic
                         : "/default-avatar.jpg"
                     }
                     alt={`${profile.name}'s profile`}
