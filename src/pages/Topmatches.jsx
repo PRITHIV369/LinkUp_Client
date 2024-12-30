@@ -28,6 +28,7 @@ const Topmatches = () => {
             body: JSON.stringify({ userId }),
           });
           const data = await response.json();
+          console.log("Fetched Data:", data); // Log the fetched data to check profilePic
           const filteredProfiles = (data.topMatches?.matched_users || []).filter(
             (profile) => profile.id !== userId
           );
@@ -99,21 +100,25 @@ const Topmatches = () => {
                 </div>
               </div>
             ) : (
-              displayedProfiles.map((profile, idx) => (
-                <div
-                  key={idx}
-                  className="flex flex-col items-center transition-all duration-300 transform hover:scale-105 hover:shadow-md cursor-pointer rounded-md"
-                  onClick={() => handleProfileClick(profile.name)}
-                >
-                  <img src={profile.profilePic ? profile.profilePic : "/default-avatar.jpg"}
-                    alt={`${profile.name}'s profile`}
-                    className="w-20 h-20 sm:w-24 sm:h-24 rounded-full object-cover shadow-md"
-                  />
-                  <p className="mt-3 text-md sm:text-lg font-medium text-slate-200">
-                    {profile.name}
-                  </p>
-                </div>
-              ))
+              displayedProfiles.map((profile, idx) => {
+                console.log("Profile Pic URL:", profile.profilePic); // Log profilePic URL
+                return (
+                  <div
+                    key={idx}
+                    className="flex flex-col items-center transition-all duration-300 transform hover:scale-105 hover:shadow-md cursor-pointer rounded-md"
+                    onClick={() => handleProfileClick(profile.name)}
+                  >
+                    <img
+                      src={profile.profilePic ? profile.profilePic : "/default-avatar.jpg"}
+                      alt={`${profile.name}'s profile`}
+                      className="w-20 h-20 sm:w-24 sm:h-24 rounded-full object-cover shadow-md"
+                    />
+                    <p className="mt-3 text-md sm:text-lg font-medium text-slate-200">
+                      {profile.name}
+                    </p>
+                  </div>
+                );
+              })
             )}
             </div>
           </div>
