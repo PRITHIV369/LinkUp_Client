@@ -101,7 +101,6 @@ const Topmatches = () => {
               </div>
             ) : (
               displayedProfiles.map((profile, idx) => {
-                console.log("Profile Pic URL:", profile.profilePic); // Log profilePic URL
                 return (
                   <div
                     key={idx}
@@ -109,7 +108,7 @@ const Topmatches = () => {
                     onClick={() => handleProfileClick(profile.name)}
                   >
                     <img
-                      src={profile.profilePic ? profile.profilePic : "/default-avatar.jpg"}
+                      src={profile.profile_pic ? profile.profile_pic : "/default-avatar.jpg"}
                       alt={`${profile.name}'s profile`}
                       className="w-20 h-20 sm:w-24 sm:h-24 rounded-full object-cover shadow-md"
                     />
