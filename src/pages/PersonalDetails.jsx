@@ -8,7 +8,7 @@ const ProfileDetails = () => {
   const [useremail,setEmail]=useState('')
   useEffect(() => {
       const storedUserEmail = localStorage.getItem("useremail");
-      if (storedUserId) {
+      if (storedUserEmail) {
         setEmail(storedUserEmail);
       } else {
         console.error("User ID not found");
