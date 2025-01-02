@@ -4,6 +4,7 @@ import { useParams } from "react-router-dom";
 const ProfileDetails = () => {
   const { profileId } = useParams();
   const [profile, setProfile] = useState(null);
+  const [isSending, setIsSending] = useState(false);
 
   useEffect(() => {
     const fetchProfile = async () => {
@@ -18,6 +19,36 @@ const ProfileDetails = () => {
 
     fetchProfile();
   }, [profileId]);
+
+  const handleEmailSend = async () => {
+    if (!profile?.email) return alert("Email address is not available!");
+
+    setIsSending(true);
+    try {
+      const response = await fetch("https://linkup-server-o8ro.onrender.com/api/send-email", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          to: profile.email,
+          subject: "Someone viewed your profile",
+          message: "The admin has notified you that someone checked out your profile.",
+        }),
+      });
+
+      if (response.ok) {
+        alert("Email sent successfully!");
+      } else {
+        alert("Failed to send email. Please try again.");
+      }
+    } catch (error) {
+      console.error("Error sending email:", error);
+      alert("An error occurred while sending the email.");
+    } finally {
+      setIsSending(false);
+    }
+  };
 
   if (!profile) {
     return (
@@ -68,6 +99,17 @@ const ProfileDetails = () => {
           <p className="text-sm text-slate-500">
             Profile created on: {profile.updatedAt || "Not available"}
           </p>
+        </div>
+        <div className="mt-4 flex justify-center">
+          <button
+            onClick={handleEmailSend}
+            disabled={isSending}
+            className={`px-4 py-2 rounded bg-slate-600 text-white hover:bg-slate-500 transition ${
+              isSending ? "opacity-50 cursor-not-allowed" : ""
+            }`}
+          >
+            {isSending ? "Sending..." : "Notify User"}
+          </button>
         </div>
       </div>
     </div>
