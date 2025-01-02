@@ -5,6 +5,7 @@ import axios from "axios";
 const Login = () => {
   const [formData, setFormData] = useState({ email: "", password: "" });
   const [errorMessage, setErrorMessage] = useState("");
+  const [loading, setLoading] = useState(false); 
   const navigate = useNavigate();
 
   const handleInputChange = (e) => {
@@ -14,6 +15,8 @@ const Login = () => {
 
   const handleLogin = async (e) => {
     e.preventDefault();
+    setLoading(true); 
+    setErrorMessage(""); 
     try {
       const response = await axios.post("https://linkup-server-o8ro.onrender.com/login", formData);
       const { userId } = response.data;
@@ -25,6 +28,8 @@ const Login = () => {
       } else {
         setErrorMessage("An error occurred. Please try again later.");
       }
+    } finally {
+      setLoading(false); 
     }
   };
 
@@ -39,33 +44,40 @@ const Login = () => {
             {errorMessage}
           </div>
         )}
-        <form
-          onSubmit={handleLogin}
-          className="w-[90%] flex flex-col md:gap-6 gap-10 mt-8"
-        >
-          <input
-            name="email"
-            type="email"
-            value={formData.email}
-            onChange={handleInputChange}
-            className="w-full bg-slate-600 text-gray-300 placeholder-gray-500 outline-none px-4 py-2 rounded-md focus:ring-2 focus:ring-slate-500 text-md font-mono"
-            placeholder="Email"
-          />
-          <input
-            name="password"
-            type="password"
-            value={formData.password}
-            onChange={handleInputChange}
-            className="w-full bg-slate-600 text-gray-300 placeholder-gray-500 outline-none px-4 py-2 rounded-md focus:ring-2 focus:ring-slate-500 text-md font-mono"
-            placeholder="Password"
-          />
-          <button
-            type="submit"
-            className="w-full bg-slate-500 text-gray-100 text-md font-mono py-2 rounded-md hover:bg-slate-600 transition-colors"
+        {loading ? ( 
+          <div className="text-gray-300 text-center text-md font-mono mt-6">
+            Loading...
+          </div>
+        ) : (
+          <form
+            onSubmit={handleLogin}
+            className="w-[90%] flex flex-col md:gap-6 gap-10 mt-8"
           >
-            Login
-          </button>
-        </form>
+            <input
+              name="email"
+              type="email"
+              value={formData.email}
+              onChange={handleInputChange}
+              className="w-full bg-slate-600 text-gray-300 placeholder-gray-500 outline-none px-4 py-2 rounded-md focus:ring-2 focus:ring-slate-500 text-md font-mono"
+              placeholder="Email"
+            />
+            <input
+              name="password"
+              type="password"
+              value={formData.password}
+              onChange={handleInputChange}
+              className="w-full bg-slate-600 text-gray-300 placeholder-gray-500 outline-none px-4 py-2 rounded-md focus:ring-2 focus:ring-slate-500 text-md font-mono"
+              placeholder="Password"
+            />
+            <button
+              type="submit"
+              className="w-full bg-slate-500 text-gray-100 text-md font-mono py-2 rounded-md hover:bg-slate-600 transition-colors"
+              disabled={loading} 
+            >
+              Login
+            </button>
+          </form>
+        )}
         <div className="w-[100%] flex items-center justify-center text-sm font-mono text-gray-100 md:mt-5 mt-8">
           Don't have an account?{" "}
           <a href="/register" className="ml-1 text-slate-400 hover:underline">

@@ -10,7 +10,7 @@ const RegisterDetails = () => {
   const [personality, setPersonality] = useState("");
   const [bio, setBio] = useState("");
   const [errorMessage, setErrorMessage] = useState(""); 
-
+  const [isLoading, setIsLoading] = useState(false);
   const handleProfilePicChange = (e) => {
     const file = e.target.files[0];
     if (file) setProfilePic(file);
@@ -43,6 +43,7 @@ const RegisterDetails = () => {
 
   const handleRegister = async (e) => {
     e.preventDefault();
+    setIsLoading(true);
     const data = new FormData();
     data.append("name", formData.name);
     data.append("email", formData.email);
@@ -60,11 +61,18 @@ const RegisterDetails = () => {
     } catch (error) {
       console.error("Registration error:", error.response?.data || error.message);
       setErrorMessage(error.response?.data?.message || "An error occurred. Please try again.");
+    } finally {
+      setIsLoading(false); 
     }
   };
 
   return (
     <div className="min-h-screen h-full w-full bg-slate-800 flex items-center justify-center py-12 px-6 font-mono">
+      {isLoading ? (
+        <div className="flex items-center justify-center w-full h-full">
+          <div className="loader border-t-4 border-blue-400 w-16 h-16 rounded-full animate-spin"></div>
+        </div>
+      ) : (
       <section className="bg-slate-700 rounded-lg shadow-lg flex flex-col items-center max-w-lg w-full p-6 sm:p-10">
         <h1 className="text-2xl font-mono tracking-wider text-center bg-slate-700 text-gray-100 py-4 px-8">
           Create Your Account
@@ -212,6 +220,7 @@ const RegisterDetails = () => {
           </div>
         </form>
       </section>
+      )}
     </div>
   );
 };
