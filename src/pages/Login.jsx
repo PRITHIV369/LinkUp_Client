@@ -21,6 +21,7 @@ const Login = () => {
       const response = await axios.post("https://linkup-server-o8ro.onrender.com/login", formData);
       const { userId } = response.data;
       localStorage.setItem("userId", userId);
+      localStorage.setItem("useremail", useremail);
       navigate("/topmatches");
     } catch (error) {
       if (error.response && error.response.status === 400) {

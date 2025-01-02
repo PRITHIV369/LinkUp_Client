@@ -28,7 +28,7 @@ const Topmatches = () => {
             body: JSON.stringify({ userId }),
           });
           const data = await response.json();
-          console.log("Fetched Data:", data); // Log the fetched data to check profilePic
+          console.log("Fetched Data:", data); 
           const filteredProfiles = (data.topMatches?.matched_users || []).filter(
             (profile) => profile.id !== userId
           );

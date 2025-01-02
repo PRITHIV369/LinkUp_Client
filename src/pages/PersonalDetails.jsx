@@ -5,7 +5,15 @@ const ProfileDetails = () => {
   const { profileId } = useParams();
   const [profile, setProfile] = useState(null);
   const [isSending, setIsSending] = useState(false);
-
+  const [useremail,setEmail]=useState('')
+  useEffect(() => {
+      const storedUserEmail = localStorage.getItem("useremail");
+      if (storedUserId) {
+        setEmail(storedUserEmail);
+      } else {
+        console.error("User ID not found");
+      }
+    }, []);
   useEffect(() => {
     const fetchProfile = async () => {
       try {
@@ -32,8 +40,8 @@ const ProfileDetails = () => {
         },
         body: JSON.stringify({
           to: profile.email,
-          subject: "Someone viewed your profile",
-          message: "The admin has notified you that someone checked out your profile.",
+          subject: "Someone checked out your profile",
+          message: `The admin has notified you that ${useremail} checked out your profile.`,
         }),
       });
 
@@ -108,7 +116,7 @@ const ProfileDetails = () => {
               isSending ? "opacity-50 cursor-not-allowed" : ""
             }`}
           >
-            {isSending ? "Sending..." : "Notify User"}
+            {isSending ? "Sending..." : "Notify"}
           </button>
         </div>
       </div>
