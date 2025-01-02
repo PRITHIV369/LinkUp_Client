@@ -35,6 +35,11 @@ const Login = () => {
 
   return (
     <div className="h-[100vh] w-[100vw] bg-slate-800 flex items-center justify-center">
+        {loading ? ( 
+          <div className="flex items-center justify-center w-full h-full">
+          <div className="loader border-t-4 border-blue-400 w-16 h-16 rounded-full animate-spin"></div>
+        </div>
+        ) : (
       <div className="md:h-[60%] md:w-[25%] w-[90%] h-[50%] bg-slate-700 rounded-lg shadow-lg flex flex-col items-center">
         <div className="w-full h-[15%] bg-slate-600 rounded-t-lg flex justify-center items-center text-gray-100 text-md font-mono">
           LOGIN
@@ -44,11 +49,6 @@ const Login = () => {
             {errorMessage}
           </div>
         )}
-        {loading ? ( 
-          <div className="text-gray-300 text-center text-md font-mono mt-6">
-            Loading...
-          </div>
-        ) : (
           <form
             onSubmit={handleLogin}
             className="w-[90%] flex flex-col md:gap-6 gap-10 mt-8"
@@ -77,7 +77,6 @@ const Login = () => {
               Login
             </button>
           </form>
-        )}
         <div className="w-[100%] flex items-center justify-center text-sm font-mono text-gray-100 md:mt-5 mt-8">
           Don't have an account?{" "}
           <a href="/register" className="ml-1 text-slate-400 hover:underline">
@@ -85,6 +84,7 @@ const Login = () => {
           </a>
         </div>
       </div>
+        )}
     </div>
   );
 };
