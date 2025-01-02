@@ -11,7 +11,7 @@ const ProfileDetails = () => {
       if (storedUserEmail) {
         setEmail(storedUserEmail);
       } else {
-        console.error("User ID not found");
+        console.error("User Email not found");
       }
     }, []);
   useEffect(() => {
